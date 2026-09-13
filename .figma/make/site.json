@@ -1,0 +1,17 @@
+{
+  "title": "Tropicool Treats Teams",
+  "description": "Manage dessert bar inventory effortlessly with an interactive, minimalist, and futuristic stocktake platform designed for smart, efficient tracking.",
+  "robots": {
+    "index": false
+  },
+  "icons": {
+    "icon": "/favicon.png"
+  },
+  "customScripts": {
+    "headStart": "<link rel=\"icon\" type=\"image/x-icon\" href=\"/favicon.ico\"><link rel=\"apple-touch-icon\" sizes=\"180x180\" href=\"/apple-touch-icon.png\"><link rel=\"manifest\" href=\"/manifest.webmanifest\"><meta name=\"theme-color\" content=\"#000000\"><meta name=\"apple-mobile-web-app-capable\" content=\"yes\"><meta name=\"apple-mobile-web-app-status-bar-style\" content=\"black-translucent\"><meta name=\"apple-mobile-web-app-title\" content=\"Tropicool Treats Teams\"><meta name=\"mobile-web-app-capable\" content=\"yes\"><meta name=\"application-name\" content=\"Tropicool Treats Teams\">"
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}

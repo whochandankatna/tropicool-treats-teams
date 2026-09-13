@@ -1,0 +1,284 @@
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap');
+@import 'tailwindcss';
+
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+button {
+  -webkit-appearance: none;
+  appearance: none;
+  padding: 0;
+  margin: 0;
+  font: inherit;
+}
+
+* {
+  scrollbar-width: none;
+}
+*::-webkit-scrollbar {
+  display: none;
+}
+
+html, body, #root {
+  min-height: 100%;
+  min-height: 100dvh;
+  width: 100%;
+  overflow-x: hidden;
+  background: #e8e8e8;
+}
+
+body {
+  margin: 0;
+}
+
+.viewport-fill {
+  min-height: 100vh;
+  min-height: 100dvh;
+}
+
+.viewport-fixed {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  height: 100vh;
+  height: 100dvh;
+}
+
+.draft-banner {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 1000;
+  min-height: 36px;
+  padding: 10px 16px;
+  background: #6d28d9;
+  color: #fff;
+  font: 600 10px/1.4 "JetBrains Mono", monospace;
+  letter-spacing: .08em;
+  text-align: center;
+}
+
+.save-error {
+  margin-bottom: 12px;
+  padding: 12px 14px;
+  border: 1px solid rgba(153, 27, 27, .35);
+  border-radius: 10px;
+  background: rgba(254, 226, 226, .92);
+  color: #7f1d1d;
+  font-size: 13px;
+}
+
+@keyframes clock-confirm-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(191, 119, 246, .5); }
+  100% { box-shadow: 0 0 0 14px rgba(191, 119, 246, 0); }
+}
+
+@keyframes clock-spinner-turn {
+  to { transform: rotate(360deg); }
+}
+
+.clock-swipe-success {
+  animation: clock-confirm-pulse .7s ease-out;
+}
+
+.clock-spinner {
+  width: 18px;
+  height: 18px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  border-radius: 999px;
+  animation: clock-spinner-turn .65s linear infinite;
+}
+
+/* Kill the ~300ms tap delay mobile browsers add while waiting to see if a
+   tap becomes a double-tap-to-zoom gesture. Applying touch-action globally
+   (rather than just on buttons) makes every tap register instantly across
+   the whole app, not just wherever it was noticed first. Panning/scrolling
+   still works fine — only the double-tap-zoom gesture is disabled. */
+html, * {
+  touch-action: manipulation;
+}
+button, a, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* ── Responsive layout helpers ── */
+.app-shell {
+  position: relative; z-index: 1;
+  max-width: none;
+  margin: 0 auto;
+  padding-left: max(24px, env(safe-area-inset-left));
+  padding-right: max(24px, env(safe-area-inset-right));
+  padding-bottom: max(80px, calc(60px + env(safe-area-inset-bottom)));
+}
+.app-shell > * {
+  width: 100%;
+  max-width: none;
+  min-width: 0;
+}
+.app-header {
+  display: flex; flex-direction: column;
+  padding-top: max(60px, calc(16px + env(safe-area-inset-top)));
+  padding-bottom: 20px;
+  gap: 10px;
+}
+.app-header-row {
+  display: flex; align-items: center;
+  justify-content: space-between; gap: 10px;
+}
+.date-chip { display: flex; }
+.stat-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px; margin-bottom: 20px;
+}
+.nav-tabs {
+  display: flex; gap: 2px; margin-bottom: 20px;
+  overflow-x: auto; -webkit-overflow-scrolling: touch;
+}
+.items-row {
+  padding: 12px 14px;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+
+/* ── Login screen ── */
+.login-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 10px;
+}
+.login-card {
+  border-radius: 12px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 72px;
+  box-sizing: border-box;
+  overflow: hidden;
+}
+.login-card-name { font-size: 12px; }
+.login-avatar { width: 32px; height: 32px; font-size: 10px; }
+.login-manager-btn { border-radius: 12px; padding: 10px 14px; gap: 10px; }
+.login-manager-icon { width: 32px; height: 32px; }
+.login-manager-title { font-size: 12px; }
+
+@media (max-width: 390px) {
+  .login-grid { gap: 6px; }
+  .login-card { border-radius: 10px; padding: 12px 14px; gap: 8px; height: 62px; box-sizing: border-box; overflow: hidden; }
+  .login-card-name { font-size: 11px; }
+  .login-avatar { width: 28px; height: 28px; font-size: 9px; }
+  .login-manager-btn { border-radius: 10px; padding: 8px 12px; gap: 8px; }
+  .login-manager-icon { width: 28px; height: 28px; }
+  .login-manager-title { font-size: 11px; }
+  .nav-tabs > button {
+    flex: 1 1 0;
+    min-width: max-content;
+    padding: 7px 7px !important;
+    font-size: 8px !important;
+    letter-spacing: .06em !important;
+  }
+  .team-section-tabs {
+    flex-wrap: wrap;
+    overflow: visible !important;
+  }
+  .team-section-tabs > button { min-height: 36px; }
+  .manager-mobile-nav button {
+    min-width: 46px !important;
+    padding: 7px 3px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .app-shell { padding: 0 16px 104px; }
+  .app-shell.manager-tab-active { padding-bottom: 0; }
+  .app-header { padding-top: max(64px, calc(20px + env(safe-area-inset-top))); padding-bottom: 16px; gap: 8px; }
+  .date-chip { display: none; }
+  .stat-grid { grid-template-columns: repeat(2, 1fr); gap: 7px; }
+  .nav-tabs { gap: 2px; scroll-snap-type: x proximity; }
+  .nav-tabs > button { min-height: 44px; scroll-snap-align: start; }
+  .items-row { padding: 10px 12px; gap: 8px; }
+  .items-row { flex-wrap: wrap; }
+  .items-row > div:first-child { flex: 1 0 100% !important; }
+  .items-row > button { width: 44px !important; height: 44px !important; }
+  .stock-counter { height: 44px !important; }
+  .stock-counter > button { width: 44px !important; height: 44px !important; }
+  .stat-grid { margin-bottom: 12px; }
+
+  .item-edit-drawer { padding: 16px 14px 18px !important; }
+  .item-edit-fields {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .item-edit-fields > div:first-child { grid-column: 1 / -1; }
+  .item-edit-fields input,
+  .item-edit-fields select { width: 100% !important; min-width: 0; }
+
+  .finance-controls-shell,
+  .finance-controls-inner {
+    width: 100%;
+    min-width: 0;
+  }
+  .finance-presets {
+    width: 100%;
+    min-width: 0;
+    max-width: 100%;
+    overflow-x: auto;
+    flex-wrap: nowrap;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+  }
+  .finance-presets > button {
+    flex: 0 0 auto;
+    min-height: 40px;
+    scroll-snap-align: start;
+  }
+  .finance-date-range {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr;
+    width: 100%;
+  }
+  .finance-date-range > input { width: 100% !important; min-width: 0; }
+  .finance-date-range > span { display: none; }
+  .finance-date-range > button { grid-column: 1 / -1; min-height: 44px; }
+
+  .checklist-task { align-items: flex-start !important; flex-wrap: wrap; }
+  .checklist-task > button:first-child { width: 44px !important; height: 44px !important; }
+  .checklist-task > div { flex-basis: calc(100% - 56px) !important; }
+  .checklist-exception { min-height: 44px; margin-left: 56px; }
+
+  /* iOS Safari auto-zooms the page on focus for any text input rendered
+     below 16px — our design uses smaller type, so force 16px only on
+     touch-width screens (desktop keeps the smaller inline sizes). */
+  input, select, textarea {
+    font-size: 16px !important;
+  }
+}
+
+/* ── PDF export (Analytics → Download PDF Report) ──────────────────────────
+   The report is portalled to document.body so it sits outside .app-shell —
+   hiding .app-shell for print doesn't touch it, and it stays out of the way
+   on screen without fighting the glass/blur inline styles used everywhere
+   else in the app. */
+.analytics-print-report { display: none; }
+@media print {
+  /* Hide everything on the page, including position:fixed decorative
+     layers that live outside .app-shell (the mesh-gradient background),
+     then explicitly reveal only the report subtree. visibility (not
+     display) is what makes that override reliable here — a visible
+     descendant still shows through a hidden ancestor, which is not true
+     for display:none. */
+  html, body { background: #fff !important; }
+  body * { visibility: hidden !important; }
+  .analytics-print-report, .analytics-print-report * { visibility: visible !important; }
+  .analytics-print-report {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 auto auto 0;
+    width: 100%;
+    background: #fff;
+    color: #000;
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    padding: 24px;
+  }
+}
